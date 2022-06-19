@@ -2,9 +2,8 @@
 ARG VARIANT=16-bullseye
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 
-# Install tslint, typescript. eslint is installed by javascript image
+# Install global npm packages
 ARG NODE_MODULES="tslint-to-eslint-config typescript@next mocha pnpm"
-# COPY library-scripts/meta.env /usr/local/etc/vscode-dev-containers
 RUN su node -c "umask 0002 && npm install -g ${NODE_MODULES}" \
     && npm cache clean --force > /dev/null 2>&1
 
@@ -17,11 +16,11 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # ARG EXTRA_NODE_VERSION="16"
 # RUN su node -c "source /usr/local/share/nvm/nvm.sh" && nvm install ${EXTRA_NODE_VERSION}
 
-# [project-specific:rust] Setup Rusct
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -y
-RUN rustup toolchain install stable
-RUN rustup component add rustfmt
-RUN rustup component add clippy
+# [project-specific:rust] Setup rust, rustup and cargo
+# RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -y
+# RUN rustup toolchain install stable
+# RUN rustup component add rustfmt
+# RUN rustup component add clippy
 
 # [project-specific:solana] Install Solana CLI & Anchor
 ARG SOLANA_VERSION="v1.10.26"
