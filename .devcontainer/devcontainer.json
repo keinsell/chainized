@@ -8,7 +8,9 @@
     // Append -bullseye or -buster to pin to an OS version.
     // Use -bullseye variants on local on arm64/Apple Silicon.
     "args": {
-      "VARIANT": "16-buster"
+      "VARIANT": "16-buster",
+      "ANCHOR_VERSION": "0.24.2",
+      "SOLANA_VERSION": "1.10.26"
     }
   },
 
