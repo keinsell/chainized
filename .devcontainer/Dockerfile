@@ -17,9 +17,9 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # RUN su node -c "source /usr/local/share/nvm/nvm.sh" && nvm install ${EXTRA_NODE_VERSION}
 
 # [project-specific:rust] Setup rust, rustup and cargo
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
-RUN rustup toolchain install stable
-RUN rustup component add rls rust-analysis rust-src rustfmt clippy 
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y && source $HOME/.cargo/env
+# RUN rustup toolchain install stable
+# RUN rustup component add rls rust-analysis rust-src rustfmt clippy 
 
 # [project-specific:solana] Install Solana CLI & Anchor
 ARG SOLANA_VERSION="1.10.26"
