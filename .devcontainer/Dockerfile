@@ -18,7 +18,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # RUN su node -c "source /usr/local/share/nvm/nvm.sh" && nvm install ${EXTRA_NODE_VERSION}
 
 # [project-specific:rust] Setup Rusct
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -y
 RUN rustup toolchain install stable
 RUN rustup component add rustfmt
 RUN rustup component add clippy
