@@ -15,9 +15,9 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 # [Optional] Uncomment if you want to install an additional version of node using nvm
 ARG EXTRA_NODE_VERSION="16"
-RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install --lts
+RUN su node -c "source /usr/local/share/nvm/nvm.sh" && nvm install ${EXTRA_NODE_VERSION}
 
-# [Project-specific] Setup Rust
+# [project-specific:rust] Setup Rust
 RUN rustup component add rustfmt
 
 # [project-specific:solana] Install Solana CLI & Anchor
