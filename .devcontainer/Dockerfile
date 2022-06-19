@@ -23,9 +23,9 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # RUN rustup component add clippy
 
 # [project-specific:solana] Install Solana CLI & Anchor
-ARG SOLANA_VERSION="v1.10.26"
-ARG ANCHOR_VERSION="0.24.2"
-RUN sh -c "$(curl -sSfL https://release.solana.com/${SOLANA_VERSION}/install)"
-RUN npm i -g @project-serum/anchor@${ANCHOR_VERSION} \
-    && cargo install --git https://github.com/project-serum/anchor --tag v${ANCHOR_VERSION} anchor-cli --locked
+# ARG SOLANA_VERSION="v1.10.26"
+# ARG ANCHOR_VERSION="0.24.2"
+# RUN sh -c "$(curl -sSfL https://release.solana.com/${SOLANA_VERSION}/install)"
+# RUN npm i -g @project-serum/anchor@${ANCHOR_VERSION} \
+#     && cargo install --git https://github.com/project-serum/anchor --tag v${ANCHOR_VERSION} anchor-cli --locked
 
