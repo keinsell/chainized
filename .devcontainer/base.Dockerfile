@@ -3,7 +3,7 @@ ARG VARIANT=16-bullseye
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 
 # Install tslint, typescript. eslint is installed by javascript image
-ARG NODE_MODULES="tslint-to-eslint-config typescript@next"
+ARG NODE_MODULES="tslint-to-eslint-config typescript@next mocha"
 COPY library-scripts/meta.env /usr/local/etc/vscode-dev-containers
 RUN su node -c "umask 0002 && npm install -g ${NODE_MODULES}" \
     && npm cache clean --force > /dev/null 2>&1
@@ -16,3 +16,13 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # [Optional] Uncomment if you want to install an additional version of node using nvm
 ARG EXTRA_NODE_VERSION="16"
 RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install --lts
+
+# [Project-specific] Setup Rust
+RUN rustup component add rustfmt
+
+# [project-specific:solana] Install Solana CLI & Anchor
+ARG SOLANA_VERSION="v1.10.26"
+ARG ANCHOR_VERSION="0.24.2"
+RUN sh -c "$(curl -sSfL https://release.solana.com/${SOLANA_VERSION}/install)"
+RUN npm i -g @project-serum/anchor@${ANCHOR_VERSION} \
+    && cargo install --git https://github.com/project-serum/anchor --tag v${ANCHOR_VERSION} anchor-cli --locked
