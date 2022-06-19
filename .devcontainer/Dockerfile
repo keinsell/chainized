@@ -8,7 +8,7 @@ RUN su node -c "umask 0002 && npm install -g ${NODE_MODULES}" \
     && npm cache clean --force > /dev/null 2>&1
 
 # [Optional] Uncomment this section to install additional OS packages.
-ARG APT_PACKAGES="gcc g++ pkg-config libudev-dev libssl-dev make build-essential libclang-dev"
+ARG APT_PACKAGES="gcc g++ pkg-config libudev-dev libssl-dev make build-essential libclang-dev llvm"
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends ${APT_PACKAGES}
 
@@ -17,10 +17,9 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # RUN su node -c "source /usr/local/share/nvm/nvm.sh" && nvm install ${EXTRA_NODE_VERSION}
 
 # [project-specific:rust] Setup rust, rustup and cargo
-# RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -y
-# RUN rustup toolchain install stable
-# RUN rustup component add rustfmt
-# RUN rustup component add clippy
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs --output rust.sh && sh rust.sh -y && source /usr/local/cargo/env
+RUN rustup toolchain install stable
+RUN rustup component add rustfmt && rustup component add clippy
 
 # [project-specific:solana] Install Solana CLI & Anchor
 ARG SOLANA_VERSION="1.10.26"
@@ -28,5 +27,6 @@ ARG ANCHOR_VERSION="0.24.2"
 RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_VERSION}/install)"
 RUN export PATH="/home/node/.local/share/solana/install/active_release/bin:$PATH"
 RUN npm install -g @project-serum/anchor@${ANCHOR_VERSION}
+# This method had some problems
 # RUN cargo install --git https://github.com/project-serum/anchor --tag v${ANCHOR_VERSION} anchor-cli --locked
-
+RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_VERSION} && avm use ${ANCHOR_VERSION}
