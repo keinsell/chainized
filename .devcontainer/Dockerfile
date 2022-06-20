@@ -3,7 +3,6 @@ ARG VARIANT=16-bullseye
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 
 ENV PATH="${HOME}/.cargo/bin:${PATH}"
-ENV PATH="${HOME}/.local/share/solana/install/active_release/bin:${PATH}"
 ENV PATH="${HOME}/.nvm/versions/node/${NODE_VERSION}/bin:${PATH}"
 
 # Install global npm packages
@@ -25,21 +24,27 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     npm install -g yarn && \
 #     npm install -g pnpm
 
-# [project-specific:rust] Setup rust, rustup and cargo
+# [feature:volta] TODO;
+
+# [feature:rust]
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 RUN export PATH="$HOME/.cargo/bin:$PATH"
-RUN bash $(source $HOME/.cargo/env)
+RUN bash $(/bin/bash source $HOME/.cargo/env)
 RUN cargo --version
 
-# [project-specific:solana] Install Solana CLI & Anchor
+# [feature:solana]
 ARG SOLANA_CLI="1.10.26"
-ARG ANCHOR_CLI="0.24.2"
 RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)"
-RUN export PATH="/home/node/.local/share/solana/install/active_release/bin:$PATH"
+ENV PATH="${HOME}/.local/share/solana/install/active_release/bin:${PATH}"
+RUN solana --version
+
+# [feature:anchor]
+ARG ANCHOR_CLI="0.24.2"
 RUN npm install -g @project-serum/anchor@${ANCHOR_CLI}
 RUN cargo install --git https://github.com/project-serum/anchor --tag v${ANCHOR_CLI} anchor-cli --locked
 # RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI}
+RUN anchor --version
 
 # Build a dummy program to bootstrap the BPF SDK (doing this speeds up builds).
 RUN mkdir -p /tmp && cd tmp && anchor init dummy && cd dummy && anchor build
