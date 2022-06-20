@@ -62,8 +62,7 @@ RUN solana --version
 
 # [feature:anchor]
 RUN npm install -g @project-serum/anchor@${ANCHOR_CLI}
-RUN cargo install --git https://github.com/project-serum/anchor --tag v${ANCHOR_CLI} anchor-cli --locked
-# RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI}
+RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI}
 RUN anchor --version
 
 # Build a dummy program to bootstrap the BPF SDK (doing this speeds up builds).
