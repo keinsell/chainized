@@ -26,8 +26,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     npm install -g pnpm
 
 # [project-specific:rust] Setup rust, rustup and cargo
-RUN curl "https://sh.rustup.rs" -sfo rustup.sh && \
-    sh rustup.sh -y
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 
 RUN export PATH="$HOME/.cargo/bin:$PATH"
 RUN cargo --version
