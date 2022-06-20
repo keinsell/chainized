@@ -28,9 +28,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 # [feature:rust]
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
-
-RUN export PATH="$HOME/.cargo/bin:$PATH"
-RUN bash $(/bin/bash source $HOME/.cargo/env)
+ENV PATH=$HOME/.cargo/bin:$PATH
+# ENV PATH=root/.cargo/bin:$PATH
 RUN cargo --version
 
 # [feature:solana]
