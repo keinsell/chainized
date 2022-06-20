@@ -2,7 +2,9 @@
 ARG VARIANT=16-bullseye
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 
+ENV HOME="/root"
 ENV PATH="${HOME}/.cargo/bin:${PATH}"
+ENV PATH="${HOME}/.local/share/solana/install/active_release/bin:${PATH}"
 ENV PATH="${HOME}/.nvm/versions/node/${NODE_VERSION}/bin:${PATH}"
 
 # Install global npm packages
@@ -27,14 +29,16 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # [feature:volta] TODO;
 
 # [feature:rust]
-# RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
-# ENV PATH=$HOME/.cargo/bin:$PATH
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y \
+    && rustup component add \
+    rustfmt \ 
+    clippy
+
 RUN cargo --version
 
 # [feature:solana]
 ARG SOLANA_CLI="1.10.26"
 RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)"
-ENV PATH="${HOME}/.local/share/solana/install/active_release/bin:${PATH}"
 RUN solana --version
 
 # [feature:anchor]
