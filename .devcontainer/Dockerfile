@@ -50,27 +50,27 @@ RUN apt-get update \
 # [feature:volta] TODO;
 
 # [feature:rust]
-RUN curl https://sh.rustup.rs -sSf | bash -s -- -y --default-toolchain nightly \
-    && rustup component add \
-    rustfmt \ 
-    clippy
+# RUN curl https://sh.rustup.rs -sSf | bash -s -- -y --default-toolchain nightly \
+#     && rustup component add \
+#     rustfmt \ 
+#     clippy
 
-RUN cargo --version
-RUN rustup --version
-RUN rustc --version
+# RUN cargo --version
+# RUN rustup --version
+# RUN rustc --version
 
 # [feature:solana]
-RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)"
+# RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)"
 
-RUN solana --version
+# RUN solana --version
 
 # [feature:anchor]
-RUN npm install -g @project-serum/anchor@${ANCHOR_CLI}
-RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI}
+# RUN npm install -g @project-serum/anchor@${ANCHOR_CLI}
+# RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI}
 
-RUN anchor --version
+# RUN anchor --version
 
-ENV HOME="/home/node"
+# ENV HOME="/home/node"
 
-# Build a dummy program to bootstrap the BPF SDK (doing this speeds up builds).
-RUN mkdir -p /tmp && cd tmp && anchor init dummy && cd dummy && anchor build
+# # Build a dummy program to bootstrap the BPF SDK (doing this speeds up builds).
+# RUN mkdir -p /tmp && cd tmp && anchor init dummy && cd dummy && anchor build
