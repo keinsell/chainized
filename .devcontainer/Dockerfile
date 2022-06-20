@@ -1,87 +1,42 @@
-# [configuration]
-# [configuration:base]
-# Node.js version (use -bullseye variants on local arm64/Apple Silicon): 18, 16, 14, 18-bullseye, 16-bullseye, 14-bullseye, 18-buster, 16-buster, 14-buster
-ARG VARIANT=16-bullseye
+# See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.238.1/containers/codespaces-linux/.devcontainer/base.Dockerfile
 
-FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
+FROM mcr.microsoft.com/vscode/devcontainers/universal:2-focal
 
-# [configuration:anchor]
-ARG ANCHOR_CLI="latest"
-# [configuration:solana]
-ARG SOLANA_CLI="1.10.26"
+WORKDIR /home/
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV HOME="/root"
-ENV PATH="${HOME}/.cargo/bin:${PATH}"
-ENV PATH="${HOME}/.local/share/solana/install/active_release/bin:${PATH}"
-ENV PATH="${HOME}/.nvm/versions/node/${NODE_VERSION}/bin:${PATH}"
+COPY . .
 
-# [core:npm]
-RUN su node -c "umask 0002 && npm install -g \
-    tslint-to-eslint-config \
-    typescript@next \
-    mocha \
-    pnpm \ 
-    " \
-    && npm cache clean --force > /dev/null 2>&1
+RUN bash ./scripts/setup-rust-solana.sh
 
-# [core:linux]
-RUN apt-get update \
-    && apt-get -y install --no-install-recommends \
-    gcc \
-    g++ \
-    pkg-config \
-    libudev-dev \
-    libssl-dev \
-    make \
-    build-essential \
-    libclang-dev \
-    llvm
+ENV PATH="/root/.cargo/bin:$PATH"
+ENV PATH="/root/.local/share/solana/install/active_release/bin:$PATH"
 
-# [Optional] Uncomment if you want to install an additional version of node using nvm
-# ARG NODE_VERSION="16"
-# RUN su node -c "source /usr/local/share/nvm/nvm.sh" && \
-#     nvm install ${NODE_VERSION} && \
-#     nvm use ${NODE_VERSION} && \
-#     nvm alias default node && \
-#     npm install -g yarn && \
-#     npm install -g pnpm
+RUN RUST_BACKTRACE=full cargo install --git https://github.com/project-serum/anchor anchor-cli --locked
 
-# [feature:volta] TODO;
-
-# [feature:rust]
-# RUN curl https://sh.rustup.rs -sSf | bash -s -- -y --default-toolchain stable \
-#     && rustup component add \
-#     rustfmt \ 
-#     clippy
-
-# RUN cargo --version \
-#     && rustup --version \
-#     && rustc --version
-
-# [feature:solana]
-# RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)"
-# RUN solana --version
-
-# [feature:anchor]
-# RUN npm install -g @project-serum/anchor@${ANCHOR_CLI}
-# RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI}
-# RUN anchor --version
-
-# [anchor:cache] 
-# Build a dummy program to bootstrap the BPF SDK (doing this speeds up builds).
-# RUN mkdir -p /tmp && cd tmp && anchor init dummy && cd dummy && anchor build
-
-# ENV HOME="/home/node"
+# replace shell with bash so we can source files
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 
-# [verification]
-RUN \
-    # [verify:rust]
-    # cargo --version \
-    # && rustup --version \
-    # && rustc --version \
-    # [verify:solana]
-    # && solana --version \
-    # [verify:anchor]
-    # && anchor --version
+# nvm environment variables
+ENV NVM_DIR /usr/local/nvm
+ENV NODE_VERSION 14.18.1
+
+# install nvm
+# https://github.com/creationix/nvm#install-script
+RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
+
+# install node, npm and yarn using nvm
+RUN source $NVM_DIR/nvm.sh \
+    && nvm install $NODE_VERSION \
+    && nvm alias default $NODE_VERSION \
+    && nvm use default \
+    && npm install -g yarn
+
+
+# add node and npm to path so the commands are available
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+
+# confirm installation
+RUN node -v
+RUN npm -v
