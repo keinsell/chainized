@@ -29,17 +29,17 @@ RUN apt-get update \
 RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION}"
 
 # [packages:npm] Uncomment if you want to install more global node packages
-RUN su node -c "npm install -g typescript@next @project-serum/anchor@${ANCHOR_CLI}"
+RUN su node -c "npm install -g typescript@next pnpm yarn @project-serum/anchor@${ANCHOR_CLI}"
 
 # [feature:rust]
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+RUN su node -c "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y"
 
 # [feature:solana]
-RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)" && solana --version
+RUN su node -c 'sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)" && solana --version'
 
 # [feature:anchor]
-RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI}
+RUN su node -c 'cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI}'
 
 # [anchor:cache] 
 # Build a dummy program to bootstrap the BPF SDK (doing this speeds up builds).
-RUN mkdir -p /tmp && cd tmp && anchor init dummy && cd dummy && anchor build
+RUN su node -c 'mkdir -p /tmp && cd tmp && anchor init dummy && cd dummy && anchor build'
