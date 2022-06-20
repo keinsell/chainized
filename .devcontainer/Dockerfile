@@ -9,6 +9,8 @@ ARG ANCHOR_CLI="latest"
 ARG SOLANA_CLI="1.10.26"
 ARG NODE_VERSION=18
 
+ENV PATH="/root/.local/share/solana/install/active_release/bin:${PATH}"
+
 # [Optional] Uncomment this section to install additional OS packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
@@ -17,15 +19,14 @@ ARG NODE_VERSION=18
 RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION}"
 
 # [Optional] Uncomment if you want to install more global node packages
-# RUN su node -c "npm install -g <your-package-list -here>"
+RUN su node -c "npm install -g @project-serum/anchor@${ANCHOR_CLI} typescript@next"
 
 # [feature:solana]
-RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)"
-RUN solana --version
+RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)" && solana --version
 
 # [feature:anchor]
-RUN npm install -g @project-serum/anchor@${ANCHOR_CLI}
-RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI}
+RUN npm install -g 
+RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI} && anchor --version
 
 # [anchor:cache] 
 # Build a dummy program to bootstrap the BPF SDK (doing this speeds up builds).
