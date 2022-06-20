@@ -25,7 +25,6 @@ RUN su node -c "npm install -g @project-serum/anchor@${ANCHOR_CLI} typescript@ne
 RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)" && solana --version
 
 # [feature:anchor]
-RUN npm install -g 
 RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI} && anchor --version
 
 # [anchor:cache] 
