@@ -27,9 +27,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 # [feature:volta] TODO;
 
 # [feature:rust]
-RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
-ENV PATH=$HOME/.cargo/bin:$PATH
-# ENV PATH=root/.cargo/bin:$PATH
+# RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
+# ENV PATH=$HOME/.cargo/bin:$PATH
 RUN cargo --version
 
 # [feature:solana]
