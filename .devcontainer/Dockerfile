@@ -27,8 +27,12 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 
 # [project-specific:rust] Setup rust, rustup and cargo
 RUN curl "https://sh.rustup.rs" -sfo rustup.sh && \
-    sh rustup.sh -y && \
-    rustup component add rls rust-analysis rust-src rustfmt clippy
+    sh rustup.sh -y
+
+RUN export PATH="$HOME/.cargo/bin:$PATH"
+RUN cargo --version
+RUN source $HOME/.cargo/env
+RUN cargo --version
 
 # [project-specific:solana] Install Solana CLI & Anchor
 ARG SOLANA_CLI="1.10.26"
