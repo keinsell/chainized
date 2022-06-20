@@ -64,14 +64,16 @@ RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)"
 RUN solana --version
 
 # [feature:anchor]
-RUN npm install -g @project-serum/anchor@${ANCHOR_CLI}
-RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI}
-RUN anchor --version
+# RUN npm install -g @project-serum/anchor@${ANCHOR_CLI}
+# RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI}
+# RUN anchor --version
+
+# [anchor:cache] 
+# Build a dummy program to bootstrap the BPF SDK (doing this speeds up builds).
+# RUN mkdir -p /tmp && cd tmp && anchor init dummy && cd dummy && anchor build
 
 # ENV HOME="/home/node"
 
-# # Build a dummy program to bootstrap the BPF SDK (doing this speeds up builds).
-RUN mkdir -p /tmp && cd tmp && anchor init dummy && cd dummy && anchor build
 
 # [verification]
 RUN \
@@ -82,4 +84,4 @@ RUN \
     # [verify:solana]
     && solana --version \
     # [verify:anchor]
-    && anchor --version
+    # && anchor --version
