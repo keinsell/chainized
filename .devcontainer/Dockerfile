@@ -1,10 +1,10 @@
-ENV PATH="${HOME}/.cargo/bin:${PATH}"
-ENV PATH="${HOME}/.local/share/solana/install/active_release/bin:${PATH}"
-ENV PATH="${HOME}/.nvm/versions/node/${NODE_VERSION}/bin:${PATH}"
-
 # [Choice] Node.js version (use -bullseye variants on local arm64/Apple Silicon): 18, 16, 14, 18-bullseye, 16-bullseye, 14-bullseye, 18-buster, 16-buster, 14-buster
 ARG VARIANT=16-bullseye
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
+
+ENV PATH="${HOME}/.cargo/bin:${PATH}"
+ENV PATH="${HOME}/.local/share/solana/install/active_release/bin:${PATH}"
+ENV PATH="${HOME}/.nvm/versions/node/${NODE_VERSION}/bin:${PATH}"
 
 # Install global npm packages
 ARG NODE_MODULES="tslint-to-eslint-config typescript@next mocha pnpm"
