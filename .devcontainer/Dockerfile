@@ -50,14 +50,14 @@ RUN apt-get update \
 # [feature:volta] TODO;
 
 # [feature:rust]
-# RUN curl https://sh.rustup.rs -sSf | bash -s -- -y --default-toolchain nightly \
-#     && rustup component add \
-#     rustfmt \ 
-#     clippy
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y --default-toolchain nightly \
+    && rustup component add \
+    rustfmt \ 
+    clippy
 
-# RUN cargo --version \
-#     && rustup --version \
-#     && rustc --version
+RUN cargo --version \
+    && rustup --version \
+    && rustc --version
 
 # [feature:solana]
 RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)"
@@ -71,7 +71,7 @@ RUN anchor --version
 # ENV HOME="/home/node"
 
 # # Build a dummy program to bootstrap the BPF SDK (doing this speeds up builds).
-# RUN mkdir -p /tmp && cd tmp && anchor init dummy && cd dummy && anchor build
+RUN mkdir -p /tmp && cd tmp && anchor init dummy && cd dummy && anchor build
 
 # [verification]
 RUN \
