@@ -2,12 +2,13 @@
 # [configuration:base]
 # Node.js version (use -bullseye variants on local arm64/Apple Silicon): 18, 16, 14, 18-bullseye, 16-bullseye, 14-bullseye, 18-buster, 16-buster, 14-buster
 ARG VARIANT=16-bullseye
+
+FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
+
 # [configuration:anchor]
 ARG ANCHOR_CLI="0.24.2"
 # [configuration:solana]
 ARG SOLANA_CLI="1.10.26"
-
-FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV HOME="/root"
