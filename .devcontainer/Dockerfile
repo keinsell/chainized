@@ -49,7 +49,7 @@ RUN apt-get update \
 # [feature:volta] TODO;
 
 # [feature:rust]
-RUN curl https://sh.rustup.rs -sSf | bash -s -- -y \
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y --default-toolchain nightly \
     && rustup component add \
     rustfmt \ 
     clippy
