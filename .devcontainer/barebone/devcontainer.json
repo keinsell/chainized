@@ -11,7 +11,6 @@
   ],
   "dockerFile": "Dockerfile",
   "settings": {
-    "terminal.integrated.shell.*": "/usr/bin/zsh",
     "files.exclude": {
       "**/CODE_OF_CONDUCT.md": true,
       "**/LICENSE": true
