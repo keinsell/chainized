@@ -26,11 +26,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     npm install -g pnpm
 
 # [project-specific:rust] Setup rust, rustup and cargo
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 RUN export PATH="$HOME/.cargo/bin:$PATH"
-RUN cargo --version
-RUN source $HOME/.cargo/env
+RUN bash $(source $HOME/.cargo/env)
 RUN cargo --version
 
 # [project-specific:solana] Install Solana CLI & Anchor
