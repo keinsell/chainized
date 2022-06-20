@@ -12,14 +12,23 @@ ARG NODE_VERSION=18
 ENV PATH="/root/.local/share/solana/install/active_release/bin:${PATH}"
 ENV PATH="/root/.cargo/bin:${PATH}"
 
-# [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+# [packages:linux]
+RUN apt-get update \
+    && apt-get -y install --no-install-recommends \
+    gcc \
+    g++ \
+    pkg-config \
+    libudev-dev \
+    libssl-dev \
+    make \
+    build-essential \
+    libclang-dev \
+    llvm
 
 # [optional:core:nvm]
 RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION}"
 
-# [Optional] Uncomment if you want to install more global node packages
+# [packages:npm] Uncomment if you want to install more global node packages
 RUN su node -c "npm install -g typescript@next @project-serum/anchor@${ANCHOR_CLI}"
 
 # [feature:rust]
