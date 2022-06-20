@@ -6,7 +6,7 @@ ARG VARIANT=16-bullseye
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:0-${VARIANT}
 
 # [configuration:anchor]
-ARG ANCHOR_CLI="0.24.2"
+ARG ANCHOR_CLI="latest"
 # [configuration:solana]
 ARG SOLANA_CLI="1.10.26"
 
@@ -55,22 +55,31 @@ RUN apt-get update \
 #     rustfmt \ 
 #     clippy
 
-# RUN cargo --version
-# RUN rustup --version
-# RUN rustc --version
+# RUN cargo --version \
+#     && rustup --version \
+#     && rustc --version
 
 # [feature:solana]
-# RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)"
-
-# RUN solana --version
+RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)"
+RUN solana --version
 
 # [feature:anchor]
-# RUN npm install -g @project-serum/anchor@${ANCHOR_CLI}
-# RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI}
-
-# RUN anchor --version
+RUN npm install -g @project-serum/anchor@${ANCHOR_CLI}
+RUN cargo install --git https://github.com/project-serum/anchor avm --locked --force && avm install ${ANCHOR_CLI} && avm use ${ANCHOR_CLI}
+RUN anchor --version
 
 # ENV HOME="/home/node"
 
 # # Build a dummy program to bootstrap the BPF SDK (doing this speeds up builds).
 # RUN mkdir -p /tmp && cd tmp && anchor init dummy && cd dummy && anchor build
+
+# [verification]
+RUN \
+    # [verify:rust]
+    cargo --version \
+    && rustup --version \
+    && rustc --version \
+    # [verify:solana]
+    && solana --version \
+    # [verify:anchor]
+    && anchor --version
