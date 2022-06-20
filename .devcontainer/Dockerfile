@@ -2,40 +2,40 @@
 
 FROM mcr.microsoft.com/vscode/devcontainers/universal:dev-linux
 
-WORKDIR /home/
+ENV NODE_VERSION="v17.0.1"
+ENV HOME="/root"
+ENV PATH="${HOME}/.cargo/bin:${PATH}"
+ENV PATH="${HOME}/.local/share/solana/install/active_release/bin:${PATH}"
+ENV PATH="${HOME}/.nvm/versions/node/${NODE_VERSION}/bin:${PATH}"
 
-COPY . .
+# Install base utilities.
+RUN mkdir -p /workdir && mkdir -p /tmp && \
+    apt-get update -qq && apt-get upgrade -qq && apt-get install -qq \
+    build-essential git curl wget jq pkg-config python3-pip \
+    libssl-dev libudev-dev
 
-RUN bash ./scripts/setup-rust-solana.sh
+# Install rust.
+RUN curl "https://sh.rustup.rs" -sfo rustup.sh && \
+    sh rustup.sh -y && \
+    rustup component add rustfmt clippy
 
-ENV PATH="/root/.cargo/bin:$PATH"
-ENV PATH="/root/.local/share/solana/install/active_release/bin:$PATH"
+# Install node / npm / yarn.
+RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+ENV NVM_DIR="${HOME}/.nvm"
+RUN . $NVM_DIR/nvm.sh && \
+    nvm install ${NODE_VERSION} && \
+    nvm use ${NODE_VERSION} && \
+    nvm alias default node && \
+    npm install -g yarn
 
-RUN RUST_BACKTRACE=full cargo install --git https://github.com/project-serum/anchor anchor-cli --locked
+# Install Solana tools.
+RUN sh -c "$(curl -sSfL https://release.solana.com/${SOLANA_CLI}/install)"
 
-# replace shell with bash so we can source files
-RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+# Install anchor.
+RUN cargo install --git https://github.com/coral-xyz/anchor --tag ${ANCHOR_CLI} anchor-cli --locked
 
-
-# nvm environment variables
-ENV NVM_DIR /usr/local/nvm
-ENV NODE_VERSION 14.18.1
-
-# install nvm
-# https://github.com/creationix/nvm#install-script
-RUN curl --silent -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.2/install.sh | bash
-
-# install node, npm and yarn using nvm
-RUN source $NVM_DIR/nvm.sh \
-    && nvm install $NODE_VERSION \
-    && nvm alias default $NODE_VERSION \
-    && nvm use default \
-    && npm install -g yarn
-
-
-# add node and npm to path so the commands are available
-ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-ENV PATH $NVM_DIR/versions/node/v$NODE_VERSION/bin:$PATH
+# Build a dummy program to bootstrap the BPF SDK (doing this speeds up builds).
+RUN mkdir -p /tmp && cd tmp && anchor init dummy && cd dummy && anchor build
 
 # confirm installation
 RUN node -v
