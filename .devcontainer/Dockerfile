@@ -17,13 +17,13 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends ${APT_PACKAGES}
 
 # [Optional] Uncomment if you want to install an additional version of node using nvm
-ARG NODE_VERSION="16"
-RUN su node -c "source /usr/local/share/nvm/nvm.sh" && \
-    nvm install ${NODE_VERSION} && \
-    nvm use ${NODE_VERSION} && \
-    nvm alias default node && \
-    npm install -g yarn && \
-    npm install -g pnpm
+# ARG NODE_VERSION="16"
+# RUN su node -c "source /usr/local/share/nvm/nvm.sh" && \
+#     nvm install ${NODE_VERSION} && \
+#     nvm use ${NODE_VERSION} && \
+#     nvm alias default node && \
+#     npm install -g yarn && \
+#     npm install -g pnpm
 
 # [project-specific:rust] Setup rust, rustup and cargo
 RUN curl "https://sh.rustup.rs" -sfo rustup.sh && \
