@@ -50,18 +50,18 @@ RUN apt-get update \
 # [feature:volta] TODO;
 
 # [feature:rust]
-RUN curl https://sh.rustup.rs -sSf | bash -s -- -y --default-toolchain nightly \
-    && rustup component add \
-    rustfmt \ 
-    clippy
+# RUN curl https://sh.rustup.rs -sSf | bash -s -- -y --default-toolchain stable \
+#     && rustup component add \
+#     rustfmt \ 
+#     clippy
 
-RUN cargo --version \
-    && rustup --version \
-    && rustc --version
+# RUN cargo --version \
+#     && rustup --version \
+#     && rustc --version
 
 # [feature:solana]
-RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)"
-RUN solana --version
+# RUN sh -c "$(curl -sSfL https://release.solana.com/v${SOLANA_CLI}/install)"
+# RUN solana --version
 
 # [feature:anchor]
 # RUN npm install -g @project-serum/anchor@${ANCHOR_CLI}
@@ -78,10 +78,10 @@ RUN solana --version
 # [verification]
 RUN \
     # [verify:rust]
-    cargo --version \
-    && rustup --version \
-    && rustc --version \
+    # cargo --version \
+    # && rustup --version \
+    # && rustc --version \
     # [verify:solana]
-    && solana --version \
+    # && solana --version \
     # [verify:anchor]
     # && anchor --version
