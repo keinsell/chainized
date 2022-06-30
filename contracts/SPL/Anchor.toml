@@ -5,7 +5,7 @@ seeds = false
 url = "https://anchor.projectserum.com"
 
 [provider]
-cluster = "devnet"
+cluster = "localnet"
 wallet = "./../../packages/config/solana/id.json"
 
 [programs.devnet]
