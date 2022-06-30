@@ -27,25 +27,31 @@ await $`solana-keygen verify ${SOLANA_PK} ${env.SOLANA_ID}`;
 await $`cp ${env.SOLANA_ID} ./../../packages/config/solana/id.json`;
 await $`cp ${env.SOLANA_CONFIG} ./../../packages/config/solana/config.yaml`;
 
+const airdropCycles = [1, 2, 3];
+
 for await (const cycle of airdropCycles) {
-  let airdropRawMessage =
-    await $`solana airdrop 2 --skip-seed-phrase-validation -C ${env.SOLANA_CONFIG} --output json`;
+  try {
+    let airdropRawMessage =
+      await $`solana airdrop 2 --skip-seed-phrase-validation -C ${env.SOLANA_CONFIG} --output json`;
 
-  let signatureProcessing;
-  airdropRawMessage
-    .toString()
-    .split(`\n`)
-    .slice(1, 4)
-    .map((line) => {
-      signatureProcessing = signatureProcessing + line;
-      return line;
-    });
+    let signatureProcessing;
+    airdropRawMessage
+      .toString()
+      .split(`\n`)
+      .slice(1, 4)
+      .map((line) => {
+        signatureProcessing = signatureProcessing + line;
+        return line;
+      });
 
-  const airdropSignature = JSON.parse(signatureProcessing.slice(9)).signature;
+    const airdropSignature = JSON.parse(signatureProcessing.slice(9)).signature;
 
-  await $`solana confirm -v ${airdropSignature} -C ${env.SOLANA_CONFIG}`;
+    await $`solana confirm -v ${airdropSignature} -C ${env.SOLANA_CONFIG}`;
 
-  echo(
-    `Balance: ${await $`solana balance ${env.SOLANA_ID} -C ${env.SOLANA_CONFIG}`}`
-  );
+    echo(
+      `Balance: ${await $`solana balance ${env.SOLANA_ID} -C ${env.SOLANA_CONFIG}`}`
+    );
+  } catch (e) {
+    echo(`Airdropping additional funds failed.`);
+  }
 }
