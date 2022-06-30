@@ -53,3 +53,6 @@ jobs:
 
       - name: Build solana projects
         run: cd contracts/SPL && pnpm run build
+
+      - name: test solana projects
+        run: pnpm run test
