@@ -5,24 +5,30 @@ import env from "@chainized/config";
 
 $.verbose = false;
 
-await $`solana config set --url ${env.SOLANA_NETWORK} -k ${env.SOLANA_ID}`;
-echo(`Configured Solana CLI: ${env.SOLANA_CONFIG}`);
+if (env.isDev) {
+  await $`solana config set --url ${env.SOLANA_NETWORK} -k ${env.SOLANA_ID}`;
+  echo(`Configured Solana CLI: ${env.SOLANA_CONFIG}`);
 
-await fs.outputJson(env.SOLANA_ID, env.SOLANA_KEYPAIR);
+  try {
+    await $`solana-keygen new -o ${env.SOLANA_ID} -s --no-bip39-passphrase`;
+    echo(
+      `Generated new wallet: ${await $`solana-keygen pubkey ${env.SOLANA_ID}`}`
+    );
+  } catch (error) {
+    echo(
+      `Using existing wallet: ${await $`solana-keygen pubkey ${env.SOLANA_ID}`}`
+    );
+  }
 
-try {
-  await $`solana-keygen new -o ${env.SOLANA_ID} -s --no-bip39-passphrase`;
-  echo(
-    `Generated new wallet: ${await $`solana-keygen pubkey ${env.SOLANA_ID}`}`
-  );
-} catch (error) {
-  echo(
-    `Using existing wallet: ${await $`solana-keygen pubkey ${env.SOLANA_ID}`}`
-  );
+  let SOLANA_PK = await $`solana-keygen pubkey ${env.SOLANA_ID}`;
+  await $`solana-keygen verify ${SOLANA_PK} ${env.SOLANA_ID}`;
 }
 
-let SOLANA_PK = await $`solana-keygen pubkey ${env.SOLANA_ID}`;
-await $`solana-keygen verify ${SOLANA_PK} ${env.SOLANA_ID}`;
+if (env.NODE_ENV === "CI") {
+  await $`solana config set --url "localhost" -k ${env.SOLANA_ID}`;
+  echo(`Configured Solana CLI: ${env.SOLANA_CONFIG}`);
+  await $`solana-keygen new -o ${env.SOLANA_ID} -s --no-bip39-passphrase`;
+}
 
 await $`cp ${env.SOLANA_ID} ./../../packages/config/solana/id.json`;
 await $`cp ${env.SOLANA_CONFIG} ./../../packages/config/solana/config.yaml`;

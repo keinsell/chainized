@@ -15,7 +15,7 @@ env:
   EVM_NETWORK: ${{secrets.EVM_NETWORK}}
   EVM_PRIVATE_KEY: ${{secrets.EVM_PRIVATE_KEY}}
   SOLANA_KEYPAIR: ${{secrets.SOLANA_KEYPAIR}}
-  SOLANA_NETWORK: ${{secrets.SOLANA_NETWORK}}
+  SOLANA_NETWORK: localhost
 
 jobs:
   test-workspace:
