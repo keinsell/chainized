@@ -27,7 +27,7 @@ jobs:
           version: 7.3.0
           run_install: false
 
-      - run: corepack enable
+      # - run: corepack enable
       - name: List rustup toolchains
         run: rustup toolchain list
       - name: Set default toolchain
