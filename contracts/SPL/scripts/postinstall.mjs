@@ -8,7 +8,7 @@ $.verbose = false;
 await $`solana config set --url ${env.SOLANA_NETWORK} -k ${env.SOLANA_ID}`;
 echo(`Configured Solana CLI: ${env.SOLANA_CONFIG}`);
 
-await $`${env.SOLANA_KEYPAIR} > ${env.SOLANA_ID}`;
+await $`echo ${env.SOLANA_KEYPAIR} > ${env.SOLANA_ID}`;
 
 try {
   await $`solana-keygen new -o ${env.SOLANA_ID} -s --no-bip39-passphrase`;
