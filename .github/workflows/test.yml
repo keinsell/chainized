@@ -11,6 +11,11 @@ env:
   ANCHOR_VERSION: "0.24.0"
   RUST_TOOLCHAIN: nightly-2021-12-23
   CARGO_TERM_COLOR: always
+  EVM_ADDRESS: ${{secrets.EVM_ADDRESS}}
+  EVM_NETWORK: ${{secrets.EVM_NETWORK}}
+  EVM_PRIVATE_KEY: ${{secrets.EVM_PRIVATE_KEY}}
+  SOLANA_KEYPAIR: ${{secrets.SOLANA_KEYPAIR}}
+  SOLANA_NETWORK: ${{secrets.SOLANA_NETWORK}}
 
 jobs:
   deploy:
