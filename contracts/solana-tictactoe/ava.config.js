@@ -4,7 +4,7 @@ module.exports = {
   failFast: true,
   failWithoutAssertions: false,
   environmentVariables: {
-    NODE_ENV: "TEST",
+    NODE_ENV: "development",
   },
   verbose: false,
   extensions: ["ts"],
