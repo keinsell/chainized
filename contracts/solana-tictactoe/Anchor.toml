@@ -1,0 +1,15 @@
+[features]
+seeds = false
+
+[registry]
+url = "https://anchor.projectserum.com"
+
+[provider]
+cluster = "localnet"
+wallet = "./../../packages/config/solana/id.json"
+
+[programs.devnet]
+tictactoe = "6hJCcHAQ4mVqgfod8Di26H1w1gTPxdeb6msfeYZgP5Zn"
+
+[scripts]
+test = "pnpm npx ava --timeout=10m"
