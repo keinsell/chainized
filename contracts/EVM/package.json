@@ -23,7 +23,7 @@
     "@openzeppelin/hardhat-upgrades": "1.19.0",
     "@thirdweb-dev/contracts": "2.4.3",
     "@thirdweb-dev/sdk": "2.3.23",
-    "@typechain/ethers-v5": "7.2.0",
+    "@typechain/ethers-v5": "10.1.0",
     "@typechain/hardhat": "2.3.1",
     "@types/chai": "4.3.1",
     "@types/mocha": "9.1.1",
