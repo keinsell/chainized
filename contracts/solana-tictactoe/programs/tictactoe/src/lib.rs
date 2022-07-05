@@ -1,3 +1,4 @@
+use anchor_lang::error::*;
 use anchor_lang::prelude::*;
 
 const BOARD_ITEM_FREE: u8 = 0; // Free slot
@@ -196,7 +197,7 @@ impl Game {
     }
 }
 
-#[error]
+#[error_code]
 pub enum ErrorCode {
     #[msg("You are not authorized to perform this action.")]
     Unauthorized,
