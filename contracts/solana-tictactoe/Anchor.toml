@@ -9,7 +9,7 @@ cluster = "devnet"
 wallet = "./../../packages/config/solana/id.json"
 
 [programs.devnet]
-escrow = "GorKJzSmWPpbrwK8zT1MtdBtPn3e5ctbjJnPExYRcUSB"
+escrow = "6hJCcHAQ4mVqgfod8Di26H1w1gTPxdeb6msfeYZgP5Zn"
 
 [scripts]
 test = "pnpm npx ava --timeout=10m"

@@ -16,7 +16,7 @@
     "build:src": "anchor build",
     "build:lib": "tsup target/types/*.ts --format cjs,esm --dts --clean",
     "build": "pnpm run build:src && pnpm run build:lib",
-    "test": "anchor test",
+    "test": "anchor test --skip-deploy --skip-build",
     "deploy": "zx scripts/deploy.mjs",
     "airdrop": "zx scripts/airdrop.mjs"
   },
