@@ -75,7 +75,7 @@ importers:
       '@typechain/hardhat': 2.3.1
       '@types/chai': 4.3.1
       '@types/mocha': 9.1.1
-      '@types/node': 12.20.55
+      '@types/node': 16.11.45
       '@typescript-eslint/eslint-plugin': 5.30.5
       '@typescript-eslint/parser': 5.30.5
       ava: 4.3.0
@@ -107,7 +107,7 @@ importers:
       '@typechain/hardhat': 2.3.1_mnmps3qcsdwtactywr24f4axw4
       '@types/chai': 4.3.1
       '@types/mocha': 9.1.1
-      '@types/node': 12.20.55
+      '@types/node': 16.11.45
       '@typescript-eslint/eslint-plugin': 5.30.5_tqdvjhskp4iqqnzfei7kl2fvsq
       '@typescript-eslint/parser': 5.30.5_hxadhbs2xogijvk7vq4t2azzbu
       ava: 4.3.0
@@ -121,7 +121,7 @@ importers:
       prettier-plugin-solidity: 1.0.0-beta.19_prettier@2.7.1
       solhint: 3.3.7
       solidity-coverage: 0.7.21
-      ts-node: 10.8.2_rf36vhyq5bw7w55ijgrvnfasgy
+      ts-node: 10.8.2_kmhzd2ra25a2aeanupbqenugla
       typechain: 5.2.0_typescript@4.7.4
       typescript: 4.7.4
 
@@ -135,7 +135,7 @@ importers:
       '@solana/web3.js': 1.47.3
       '@types/chai': 4.3.1
       '@types/mocha': 9.1.1
-      '@types/node': 12.20.55
+      '@types/node': 16.11.45
       ava: 4.3.0
       chai: 4.3.6
       mocha: 9.2.2
@@ -152,11 +152,11 @@ importers:
       '@solana/web3.js': 1.47.3
       '@types/chai': 4.3.1
       '@types/mocha': 9.1.1
-      '@types/node': 12.20.55
+      '@types/node': 16.11.45
       ava: 4.3.0_@ava+typescript@3.0.1
       chai: 4.3.6
       mocha: 9.2.2
-      ts-node: 10.8.2_rf36vhyq5bw7w55ijgrvnfasgy
+      ts-node: 10.8.2_kmhzd2ra25a2aeanupbqenugla
       tsup: 6.1.3_bn3y5sn7aa6hsplivwol7ie4em
       typescript: 4.7.4
       zx: 7.0.7
@@ -171,7 +171,7 @@ importers:
       '@solana/web3.js': 1.47.3
       '@types/chai': 4.3.1
       '@types/mocha': 9.1.1
-      '@types/node': 12.20.55
+      '@types/node': 16.11.45
       ava: 4.3.0
       chai: 4.3.6
       mocha: 9.2.2
@@ -188,11 +188,11 @@ importers:
       '@solana/web3.js': 1.47.3
       '@types/chai': 4.3.1
       '@types/mocha': 9.1.1
-      '@types/node': 12.20.55
+      '@types/node': 16.11.45
       ava: 4.3.0_@ava+typescript@3.0.1
       chai: 4.3.6
       mocha: 9.2.2
-      ts-node: 10.8.2_rf36vhyq5bw7w55ijgrvnfasgy
+      ts-node: 10.8.2_kmhzd2ra25a2aeanupbqenugla
       tsup: 6.1.3_bn3y5sn7aa6hsplivwol7ie4em
       typescript: 4.7.4
       zx: 7.0.7
@@ -1911,6 +1911,10 @@ packages:
   /@types/node/12.20.55:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
 
+  /@types/node/16.11.45:
+    resolution: {integrity: sha512-3rKg/L5x0rofKuuUt5zlXzOnKyIHXmIu5R8A0TuNDMF2062/AOIDBciFIjToLEJ/9F9DzkHNot+BpNsMI1OLdQ==}
+    dev: true
+
   /@types/node/17.0.45:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
     dev: true
@@ -2879,7 +2883,7 @@ packages:
   /axios/0.21.4_debug@4.3.4:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.15.1_debug@4.3.4
+      follow-redirects: 1.15.1_debug@4.3.2
     transitivePeerDependencies:
       - debug
     dev: true
@@ -6756,18 +6760,6 @@ packages:
     dependencies:
       debug: 4.3.2
 
-  /follow-redirects/1.15.1_debug@4.3.4:
-    resolution: {integrity: sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dependencies:
-      debug: 4.3.4
-    dev: true
-
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
     dependencies:
@@ -7410,7 +7402,7 @@ packages:
       source-map-support: 0.5.21
       stacktrace-parser: 0.1.10
       true-case-path: 2.2.1
-      ts-node: 10.8.2_rf36vhyq5bw7w55ijgrvnfasgy
+      ts-node: 10.8.2_kmhzd2ra25a2aeanupbqenugla
       tsort: 0.0.1
       typescript: 4.7.4
       undici: 5.5.1
@@ -10297,7 +10289,7 @@ packages:
         optional: true
     dependencies:
       lilconfig: 2.0.5
-      ts-node: 10.8.2_rf36vhyq5bw7w55ijgrvnfasgy
+      ts-node: 10.8.2_kmhzd2ra25a2aeanupbqenugla
       yaml: 1.10.2
     dev: true
 
@@ -12404,7 +12396,7 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
-  /ts-node/10.8.2_rf36vhyq5bw7w55ijgrvnfasgy:
+  /ts-node/10.8.2_kmhzd2ra25a2aeanupbqenugla:
     resolution: {integrity: sha512-LYdGnoGddf1D6v8REPtIH+5iq/gTDuZqv2/UJUU7tKjuEU8xVZorBM+buCGNjj+pGEud+sOoM4CX3/YzINpENA==}
     hasBin: true
     peerDependencies:
@@ -12423,7 +12415,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
-      '@types/node': 12.20.55
+      '@types/node': 16.11.45
       acorn: 8.7.1
       acorn-walk: 8.2.0
       arg: 4.1.3
