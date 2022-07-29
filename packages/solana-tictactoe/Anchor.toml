@@ -1,6 +1,9 @@
 [features]
 seeds = false
 
+[programs.localnet]
+tic_tac_toe = "H977Pr3fnrGuyfrgtbWkBVsQmR6jXbeiceDfBPKhRgBx"
+
 [registry]
 url = "https://anchor.projectserum.com"
 

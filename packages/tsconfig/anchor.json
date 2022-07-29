@@ -1,8 +1,7 @@
 {
-  "extends": "@chainized/tsconfig/anchor.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Anchor-based Solana Package",
   "compilerOptions": {
-    "types": ["mocha", "chai"],
-    "typeRoots": ["./node_modules/@types"],
     "lib": ["es2015"],
     "module": "commonjs",
     "target": "es6",
