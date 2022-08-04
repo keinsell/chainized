@@ -8,7 +8,7 @@ describe("test-program", () => {
   // Configure the client to use the local cluster.
   anchor.setProvider(anchor.AnchorProvider.env());
 
-  const program = anchor.workspace.TestProgram as Program<NativeTransfer>;
+  const program = anchor.workspace.NativeTransfer as Program<NativeTransfer>;
 
   const receiver = new PublicKey(
     "G34GvbBrz3X2ax2qsQKKWKWE2CkSnorDmbKuTkxfbRQ5"
