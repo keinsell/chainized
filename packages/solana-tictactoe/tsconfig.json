@@ -1,11 +1,12 @@
 {
-  "extends": "@chainized/tsconfig/anchor.json",
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "node-esm@16",
   "compilerOptions": {
-    "types": ["mocha", "chai"],
-    "typeRoots": ["./node_modules/@types"],
-    "lib": ["es2015"],
-    "module": "commonjs",
-    "target": "es6",
-    "esModuleInterop": true
+    "lib": ["es2021"],
+    "module": "es2022",
+    "target": "es2021",
+    "strict": true,
+    "moduleResolution": "node",
+    "checkJs": true
   }
 }
