@@ -194,7 +194,7 @@ importers:
       '@thirdweb-dev/contracts': 3.5.0
       '@thirdweb-dev/sdk': 2.5.2
       '@typechain/ethers-v5': 7.2.0
-      '@typechain/hardhat': 2.3.1
+      '@typechain/hardhat': 6.1.6
       '@types/chai': 4.3.5
       '@types/mocha': 9.1.1
       '@types/node': 12.20.55
@@ -226,7 +226,7 @@ importers:
       '@thirdweb-dev/contracts': 3.5.0
       '@thirdweb-dev/sdk': 2.5.2_ethers@5.7.2
       '@typechain/ethers-v5': 7.2.0_vecux64xekz36zggpgz5gldpmq
-      '@typechain/hardhat': 2.3.1_t4ifspvwmzrkqgwnrko4v5zkle
+      '@typechain/hardhat': 6.1.6_drfsvzoslx34wmlpxexepalhg4
       '@types/chai': 4.3.5
       '@types/mocha': 9.1.1
       '@types/node': 12.20.55
@@ -4515,16 +4515,22 @@ packages:
       typescript: 4.7.4
     dev: true
 
-  /@typechain/hardhat/2.3.1_t4ifspvwmzrkqgwnrko4v5zkle:
-    resolution: {integrity: sha512-BQV8OKQi0KAzLXCdsPO0pZBNQQ6ra8A2ucC26uFX/kquRBtJu1yEyWnVSmtr07b5hyRoJRpzUeINLnyqz4/MAw==}
+  /@typechain/hardhat/6.1.6_drfsvzoslx34wmlpxexepalhg4:
+    resolution: {integrity: sha512-BiVnegSs+ZHVymyidtK472syodx1sXYlYJJixZfRstHVGYTi8V1O7QG4nsjyb0PC/LORcq7sfBUcHto1y6UgJA==}
     peerDependencies:
-      hardhat: ^2.0.10
-      lodash: ^4.17.15
-      typechain: ^5.1.2
+      '@ethersproject/abi': ^5.4.7
+      '@ethersproject/providers': ^5.4.7
+      '@typechain/ethers-v5': ^10.2.1
+      ethers: ^5.4.7
+      hardhat: ^2.9.9
+      typechain: ^8.1.1
     dependencies:
+      '@ethersproject/abi': 5.7.0
+      '@ethersproject/providers': 5.7.2
+      '@typechain/ethers-v5': 7.2.0_vecux64xekz36zggpgz5gldpmq
+      ethers: 5.7.2
       fs-extra: 9.1.0
       hardhat: 2.14.0_bn3y5sn7aa6hsplivwol7ie4em
-      lodash: 4.17.21
       typechain: 5.2.0_typescript@4.7.4
     dev: true
 
